@@ -123,4 +123,4 @@ WORKDIR /cemu/CEMU/build
 
 # 设置启动命令，这里留空，由用户进入容器后执行
 # CMD ["/bin/bash"]
-CMD ["sh","run-csd.sh"]
+CMD ["sh","run-3csd-freezing.sh"]
