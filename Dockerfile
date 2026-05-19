@@ -121,6 +121,5 @@ COPY --from=cemu_builder /cemu /cemu/
 
 WORKDIR /cemu/CEMU/build
 
-# 设置启动命令，这里留空，由用户进入容器后执行
-# CMD ["/bin/bash"]
-CMD ["sh","run-3csd-freezing.sh"]
+# 启动后运行CEMU虚拟机
+CMD ["bash","run-csd.sh"]

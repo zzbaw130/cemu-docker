@@ -1,5 +1,12 @@
 #!/bin/bash
 
+if [[ $# -ne 1 ]] || ! [[ $1 =~ ^[0-9]+$ ]]; then
+	echo "Usage: $0 <data size in GB (number)>"
+	exit 1
+fi
+export CSD_TEST_DATA_SIZE=$1
+datasize=$1
+
 nr_dev=$(ls /sys/class/nvme | wc -l)
 echo "Found $nr_dev NVMe Drives"
 
@@ -15,9 +22,9 @@ for ((i=0; i<$nr_dev; i++)); do
 		mkdir -p $dir
 		mount $nvm $dir
 		echo "Mount $nvm to $dir"
-		fio --name=write --rw=write --bs=128k --filename=$dir/test --size=4G --iodepth=128 --ioengine=io_uring --direct=1 &
+		fio --name=write --rw=write --bs=128k --filename=$dir/test --size=$datasize\G --iodepth=128 --ioengine=io_uring --direct=1 &
         pids+=($!)
-		fallocate -l 4G $dir/output
+		fallocate -l $datasize\G $dir/output
 	fi
 done
 for pid in ${pids[@]}; do

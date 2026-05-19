@@ -6,9 +6,9 @@ SYSTEM=`uname -s`
 
 if [[ -f /etc/debian_version ]]; then
 	# Includes Ubuntu, Debian
-    apt-get install -y gcc pkg-config git libglib2.0-dev libfdt-dev libpixman-1-dev zlib1g-dev
+    apt-get install -y build-essential pkg-config git libglib2.0-dev libfdt-dev libpixman-1-dev zlib1g-dev
     apt-get install -y libaio-dev libslirp-dev
-    apt-get install -y flex bison libelf-dev libssl-dev cmake 
+    apt-get install -y flex bison libelf-dev libssl-dev cmake zstd
     apt-get install -y libbpf-dev liblz4-dev libboost-dev 
     apt-get install -y libboost-program-options-dev libboost-filesystem-dev
 	# Additional dependencies

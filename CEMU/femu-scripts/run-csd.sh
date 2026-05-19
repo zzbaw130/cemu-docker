@@ -12,6 +12,14 @@
 #
 # use ssh port 2222 to connect guest:
 #   ssh -p 2222 root@localhost
+
+device_count=${CSD_COUNT:-1}
+
+QEMU_DEVICE=""
+for ((i=0; i<$device_count; i++)); do
+    QEMU_DEVICE="$QEMU_DEVICE -device femu,config_file=./cemu_config.json"
+done
+
 ./x86_64-softmmu/qemu-system-x86_64 \
     -name "CEMU-DBIQ" \
     -smp 8 \
@@ -19,7 +27,7 @@
     -kernel ../../linux-cemu/vmlinux \
     -initrd ../../dqib_amd64-pc/initrd \
     -drive file=../../dqib_amd64-pc/image.qcow2 \
-    -device femu,config_file=./cemu_config.json \
+    $QEMU_DEVICE \
     -net user,hostfwd=tcp::2222-:22 \
     -net nic,model=virtio \
     -append "root=LABEL=rootfs console=ttyS0" \
