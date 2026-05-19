@@ -1,14 +1,14 @@
 #!/bin/bash
 chunks=1
 devices=3
-filesize=$(awk "BEGIN{print 4/$devices}")
+filesize=$(awk "BEGIN{print 16/$devices}")
 
 # prepare the input files
 pids=()
 for ((i=0;i<$devices;i++)); do
     path=/mnt/nvme$i/test
     if [ ! -e "$path" ]; then
-        fio --name=write --rw=write --bs=128k --filename=$path --size=4G &
+        fio --name=write --rw=write --bs=128k --filename=$path --size=16G &
         pids+=($!)
     fi
 done
